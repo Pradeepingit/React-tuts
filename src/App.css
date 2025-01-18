@@ -1,0 +1,11 @@
+p {
+    font-size: 1.5rem;
+}
+
+.role {
+    color: rgb(255, 0, 0);
+}
+
+.norole {
+    color: rgba(3, 53, 255, 0.763);
+}
