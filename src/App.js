@@ -1,21 +1,30 @@
 import { useState } from 'react';
 import './App.css';
 import Employee from './components/Employee';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-  const showEmployees = true;
   const [role, setRole] = useState('dev');
   const [employees, setEmployees] = useState(
     [
-      { name: "Caleb", role: "developer", img: "https://img.freepik.com/free-photo/cheerful-healthy-portrait-face-background_1187-6062.jpg" },
-      { name: "Sal", role: "manager", img: "https://img.freepik.com/free-photo/happy-joyful-hipster-guy-posing_1262-21147.jpg" },
-      { name: "June", role: "Director of Engg", img: "https://img.freepik.com/free-photo/smiling-brunette-woman-yellow-sweater-pointing-finger-up-happy-female-model-showing-advertisement-top-indicating-copy-space-standing-white-background_176420-53284.jpg" },
-      { name: "Melanie", role: "Software Engineer", img: "https://img.freepik.com/free-photo/vertical-shot-happy-dark-skinned-female-with-curly-hair_273609-15519.jpg" },
-      { name: "Corey", role: "The Devops Guy", img: "https://img.freepik.com/free-photo/beautiful-female-half-length-portrait-isolated-young-emotional-indian-woman-dress-standing-crossing-hands-negative-space-facial-expression-human-emotions-concept_155003-18237.jpg" },
-      { name: "Melissa", role: "Senior", img: "https://img.freepik.com/free-photo/young-beautiful-woman-casual-clothes-looking-smiling-confident-with-arms-crossed_141793-128211.jpg" },
+      { id: 1, name: "Caleb", role: "developer", img: "https://img.freepik.com/free-photo/cheerful-healthy-portrait-face-background_1187-6062.jpg" },
+      { id: 2, name: "Sal", role: "manager", img: "https://img.freepik.com/free-photo/happy-joyful-hipster-guy-posing_1262-21147.jpg" },
+      { id: 3, name: "June", role: "Director of Engg", img: "https://img.freepik.com/free-photo/smiling-brunette-woman-yellow-sweater-pointing-finger-up-happy-female-model-showing-advertisement-top-indicating-copy-space-standing-white-background_176420-53284.jpg" },
+      { id: 4, name: "Melanie", role: "Software Engineer", img: "https://img.freepik.com/free-photo/vertical-shot-happy-dark-skinned-female-with-curly-hair_273609-15519.jpg" },
+      { id: 5, name: "Corey", role: "The Devops Guy", img: "https://img.freepik.com/free-photo/beautiful-female-half-length-portrait-isolated-young-emotional-indian-woman-dress-standing-crossing-hands-negative-space-facial-expression-human-emotions-concept_155003-18237.jpg" },
+      { id: 6, name: "Melissa", role: "Senior", img: "https://img.freepik.com/free-photo/young-beautiful-woman-casual-clothes-looking-smiling-confident-with-arms-crossed_141793-128211.jpg" },
     ]
-  )
+  );
+  function updateEmployee(id, newName, newRole) {
+    const updatedEmployee = employees.map((employee) => {
+      if (id === employee.id) {
+        return { ...employee, name: newName, role: newRole }
+      }
+      return employee;
+    })
+    setEmployees(updatedEmployee);
+  }
+  const showEmployees = true;
   return (
     <div className="App">
       {showEmployees ?
@@ -29,10 +38,12 @@ function App() {
             {employees.map((employee) => {
               return (
                 <Employee
-                  key={uuidv4()}
+                  key={employee.id}
+                  id={employee.id}
                   name={employee.name}
                   role={employee.role}
                   img={employee.img}
+                  updateEmployee={updateEmployee}
                 />
               )
             })}
